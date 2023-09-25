@@ -15,6 +15,7 @@ const alphaSort = (a, b) => a.name.localeCompare(b.name);
  */
 export default function ListProvider({ children = [] }) {
     const [lists, setLists] = useState([]);
+    const [activeList, setActiveList] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
     // Load the lists on initial render
@@ -91,6 +92,8 @@ export default function ListProvider({ children = [] }) {
     const contextValue = {
         isLoading,
         lists,
+        activeList,
+        setActiveList,
         addList,
         updateList,
         deleteList,

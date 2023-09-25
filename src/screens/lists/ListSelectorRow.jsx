@@ -20,9 +20,10 @@ import PropTypes from "prop-types";
 import { useRef, useState } from "react";
 import useLists from "../../hooks/context/list/useLists";
 import { ListStatus } from "../../classes/List";
+import { isNil } from "lodash";
 
 export default function ListSelectorRow({ list = null }) {
-    const { deleteList, updateList } = useLists();
+    const { deleteList, updateList, activeList, setActiveList } = useLists();
 
     const [isEditing, setIsEditing] = useState(false);
     const [editingName, setEditingName] = useState(list.name);
@@ -35,11 +36,14 @@ export default function ListSelectorRow({ list = null }) {
     const toggleArchive = () => {
         updateList({
             ...list,
-            status: list.status === ListStatus.ARCHIVED ? ListStatus.ACTIVE : ListStatus.ARCHIVED,
+            status:
+                list.status === ListStatus.ARCHIVED
+                    ? ListStatus.ACTIVE
+                    : ListStatus.ARCHIVED,
         });
         setMenuOpen(false);
         setIsEditing(false);
-    }
+    };
 
     /**
      * Update the List with the updated values
@@ -54,7 +58,12 @@ export default function ListSelectorRow({ list = null }) {
     };
 
     return (
-        <Box className="list-selector-row">
+        <Box
+            className={`list-selector-row ${
+                !isNil(activeList) && activeList.id === list.id && "active"
+            } `}
+            onClick={() => setActiveList(list)}
+        >
             {isEditing ? (
                 <ClickAwayListener
                     onClickAway={() => {
@@ -83,7 +92,12 @@ export default function ListSelectorRow({ list = null }) {
                 </Box>
             )}
             <Box className="action-menu" ref={menuRef}>
-                <IconButton onClick={() => setMenuOpen(true)}>
+                <IconButton
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        setMenuOpen(true);
+                    }}
+                >
                     <FontAwesomeIcon icon={faEllipsisV} />
                 </IconButton>
             </Box>
