@@ -1,0 +1,26 @@
+@use 'screens/screen';
+@use 'screens/tasks';
+@use 'util/divider';
+@use 'util/no-results';
+
+@import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700');
+
+body {
+    margin: 0;
+    font-family:  'Poppins', 'Arial', 'Verdana',  'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 14pt;
+}
+
+a,
+div {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.App {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}

@@ -1,0 +1,44 @@
+.tasks.screen {
+    display: flex;
+    flex-direction: row;
+
+    .list-container,
+    .task-container {
+        padding: 10px;
+    }
+
+    .list-container {
+        flex: 2;
+    }
+    .task-container {
+        flex: 10;
+    }
+}
+
+.list-selector {
+
+    .list-selector-header {
+        display: flex;
+    }
+
+    .list-selector-row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .action-menu {
+            visibility: hidden;
+        }
+
+        .name {
+            flex: 1;
+        }
+    }
+
+    .list-selector-row:hover {
+
+        .action-menu {
+            visibility: visible;
+        }
+    }
+}
