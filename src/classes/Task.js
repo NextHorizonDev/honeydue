@@ -1,6 +1,6 @@
-import IdClass from "./IdClass";
+import MetaClass from "./MetaClass";
 
-export default class Task extends IdClass {
+export default class Task extends MetaClass {
     listId = null;
 
     name = "";

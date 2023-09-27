@@ -1,6 +1,6 @@
-import IdClass from "./IdClass";
+import MetaClass from "./MetaClass";
 
-export default class List extends IdClass {
+export default class List extends MetaClass {
     name = "";
 
     status = ListStatus.ACTIVE;

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { ListContext } from "./ListContext";
 import PropTypes from "prop-types";
 import { isNil } from "lodash";
+import List from "../../../classes/List";
 
 const _listStorageKey = "lists_store";
 
@@ -20,14 +21,15 @@ export default function ListProvider({ children = [] }) {
 
     // Load the lists on initial render
     useEffect(() => {
-        const loadedLists = JSON.parse(localStorage.getItem(_listStorageKey));
+        let loadedLists = JSON.parse(localStorage.getItem(_listStorageKey));
 
         // Sanity Check
         if (isNil(loadedLists)) {
             setIsLoading(false);
             return;
         }
-
+        
+        loadedLists = loadedLists.map(elem => new List(elem));
         loadedLists.sort(alphaSort);
         setLists(loadedLists);
         setIsLoading(false);
@@ -38,6 +40,13 @@ export default function ListProvider({ children = [] }) {
      * @param {List} newList
      */
     const addList = (newList) => {
+
+        // Sanity Check
+        if (!(newList instanceof List)) {
+            console.error("cannot add object that is not List");
+            return;
+        }
+
         // Sanity check
         if (isNil(newList)) {
             console.error(`cannot add ${newList} as a new List`);
@@ -62,6 +71,13 @@ export default function ListProvider({ children = [] }) {
      * @param {string} targetList
      */
     const updateList = (targetList) => {
+
+        // Sanity Check
+        if (!(targetList instanceof List)) {
+            console.error("cannot update object that is not List");
+            return;
+        }
+
         // Update the List
         const res = [...lists];
         const index = res.findIndex((elem) => elem.id === targetList.id);

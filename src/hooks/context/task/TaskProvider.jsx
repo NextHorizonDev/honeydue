@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { TaskContext } from "./TaskContext";
 import { isNil } from "lodash";
+import Task from "../../../classes/Task";
 
 const _taskStorageKey = "tasks_store";
 
@@ -27,6 +28,13 @@ export default function TaskProvider({ children = [] }) {
             return;
         }
 
+        // Convert to the proper class
+        for (const listId of Object.keys(loadedTasks)) {
+            loadedTasks[listId] = loadedTasks[listId].map(
+                (elem) => new Task(elem)
+            );
+        }
+
         setTasksByList(loadedTasks);
         setIsLoading(false);
     }, []);
@@ -44,6 +52,12 @@ export default function TaskProvider({ children = [] }) {
      * @param {Task} newTask
      */
     const addTask = (newTask) => {
+        // Sanity Check
+        if (!(newTask instanceof Task)) {
+            console.error("cannot add object that is not Task");
+            return;
+        }
+
         const res = { ...tasksByList };
 
         if (isNil(res[newTask.listId])) {
@@ -66,9 +80,16 @@ export default function TaskProvider({ children = [] }) {
 
     /**
      * Update the target task with the new Task data
-     * @param {Task} task 
+     * @param {Task} task
      */
     const updateTask = (task) => {
+
+        // Sanity Check
+        if (!(task instanceof Task)) {
+            console.error("cannot update object that is not Task");
+            return;
+        }
+
         const res = { ...tasksByList };
 
         // Find the element
@@ -91,7 +112,7 @@ export default function TaskProvider({ children = [] }) {
         addTask,
         updateTask,
         showCompleted,
-        setShowCompleted
+        setShowCompleted,
     };
 
     return (

@@ -60,6 +60,7 @@ function ActiveAddTaskContent({
             }}
             className="active-add-task-content"
             size="small"
+            fullWidth
         />
     );
 }

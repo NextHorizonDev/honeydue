@@ -34,13 +34,16 @@ export default function ListSelectorRow({ list = null }) {
      * Change the status of the List between Archived/Active
      */
     const toggleArchive = () => {
-        updateList({
-            ...list,
+        list.updateValues({
             status:
                 list.status === ListStatus.ARCHIVED
                     ? ListStatus.ACTIVE
                     : ListStatus.ARCHIVED,
         });
+
+        console.log(list);
+
+        updateList(list);
         setMenuOpen(false);
         setIsEditing(false);
     };
@@ -62,7 +65,13 @@ export default function ListSelectorRow({ list = null }) {
             className={`list-selector-row ${
                 !isNil(activeList) && activeList.id === list.id && "active"
             } `}
-            onClick={() => setActiveList(!isNil(activeList) && activeList.id === list.id ? null : list)}
+            onClick={() =>
+                setActiveList(
+                    !isNil(activeList) && activeList.id === list.id
+                        ? null
+                        : list
+                )
+            }
         >
             {isEditing ? (
                 <ClickAwayListener
