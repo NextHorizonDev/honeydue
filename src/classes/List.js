@@ -1,9 +1,6 @@
-import { Mergeable } from "../@nhd/common-shared/classes/mergeable";
-import { v4 } from "uuid";
+import IdClass from "./IdClass";
 
-export default class List extends Mergeable {
-    id = v4();
-
+export default class List extends IdClass {
     name = "";
 
     status = ListStatus.ACTIVE;
@@ -11,9 +8,6 @@ export default class List extends Mergeable {
     constructor(values) {
         super(values);
         this.setValues(values);
-        console.warn(
-            "Id creation needs to be replaced with crypto in production"
-        );
     }
 }
 

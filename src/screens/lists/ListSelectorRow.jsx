@@ -62,7 +62,7 @@ export default function ListSelectorRow({ list = null }) {
             className={`list-selector-row ${
                 !isNil(activeList) && activeList.id === list.id && "active"
             } `}
-            onClick={() => setActiveList(list)}
+            onClick={() => setActiveList(!isNil(activeList) && activeList.id === list.id ? null : list)}
         >
             {isEditing ? (
                 <ClickAwayListener

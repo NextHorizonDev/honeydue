@@ -21,6 +21,13 @@ export default function ListProvider({ children = [] }) {
     // Load the lists on initial render
     useEffect(() => {
         const loadedLists = JSON.parse(localStorage.getItem(_listStorageKey));
+
+        // Sanity Check
+        if (isNil(loadedLists)) {
+            setIsLoading(false);
+            return;
+        }
+
         loadedLists.sort(alphaSort);
         setLists(loadedLists);
         setIsLoading(false);
@@ -38,7 +45,6 @@ export default function ListProvider({ children = [] }) {
         }
 
         // Ensure there is an id
-        
 
         const res = [...lists];
         res.push(newList);
